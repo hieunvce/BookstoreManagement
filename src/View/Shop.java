@@ -88,6 +88,7 @@ public class Shop extends JFrame {
 		btnXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				data.sachdaban(b,sosach,tonggia);
+				textField_1.setText("0");
 				listmodel.removeAllElements();
 				listModelgia.removeAllElements();
 			}

@@ -2,14 +2,16 @@ package Source;
 
 import javax.swing.JOptionPane;
 
+
 public class  database {
 	
 	//private String[][] dansach=new String[50][3];
 	
-	
 	public void sachdaban(BookV b[],int sosach,float t) {
 		//chuyen di id cua sach da ban 	
-		JOptionPane.showMessageDialog(null,"Thanh Cong \nThanh tien : "+t, "Bien Lai", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null,"Hoan tat", "Bien Lai", JOptionPane.INFORMATION_MESSAGE);
+
+		
 	}		
 	public BookV laysach(int id) {
 		//truyen int nhan BookV
@@ -47,8 +49,14 @@ public class  database {
 			danhsach[i][0]=String.valueOf(i);
 		}
 	}
-	public void themsach() {
-		
+	public void themsach(String id,String ten,String tgia,String soluong,String gia) {
+		//gui di thong tin cua sach moi
+		System.out.println("sach moi :");
+		System.out.println("id : "+id);
+		System.out.println("ten : "+ten);
+		System.out.println("tac gia : "+tgia);
+		System.out.println("so luong : "+soluong);
+		System.out.println("gia : "+gia);
 	}
 	public int gettongsosach() {
 		//nnhan tu sever tong so luong sach

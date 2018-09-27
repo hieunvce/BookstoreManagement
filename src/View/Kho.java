@@ -156,14 +156,25 @@ public class Kho extends JFrame implements ActionListener {
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				data.themsach();
 				Popup  pop = new Popup();
-				
 				System.out.println(pop.getten());
-				
-				tongsoluongsach++;
+				tblsach[tongsoluongsach][0]=pop.getid();
+				tblsach[tongsoluongsach][1]=pop.getten();
+				tblsach[tongsoluongsach][2]=pop.gettacgia();
+				tblsach[tongsoluongsach][3]=pop.getsoluong();
+				tblsach[tongsoluongsach][4]=pop.getgia();
+				System.out.println(tblsach[tongsoluongsach][0]);
+				System.out.println(tblsach[tongsoluongsach][1]);
+				System.out.println(tblsach[tongsoluongsach][2]);
+				System.out.println(tblsach[tongsoluongsach][3]);
+				System.out.println(tblsach[tongsoluongsach][4]);
 				table.repaint();
-
+				data.themsach(tblsach[tongsoluongsach][0],
+							  tblsach[tongsoluongsach][1],
+							  tblsach[tongsoluongsach][2],
+							  tblsach[tongsoluongsach][3],
+							  tblsach[tongsoluongsach][4]);
+				tongsoluongsach++;
 			}
 		});
 		
@@ -172,7 +183,6 @@ public class Kho extends JFrame implements ActionListener {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, w,h-40);
-		//setBounds(0,0,500,500);
 		
 	}
 	public void btchangekho () {

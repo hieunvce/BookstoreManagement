@@ -33,7 +33,6 @@ public class Popup extends JPanel {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private String id,t,tg,sl,g;
-	private boolean btnok =false;
 	public Popup() {
 	      
 	      JPanel myPanel = new JPanel();
@@ -99,7 +98,7 @@ public class Popup extends JPanel {
 	      panel_5.add(textField_4, BorderLayout.EAST);
 	      textField_4.setColumns(10);
 	      
-	      lblNewLabel = new JLabel("New label");
+	      lblNewLabel = new JLabel("image");
 	      lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 	      myPanel.add(lblNewLabel, BorderLayout.WEST);
 	      int rs =JOptionPane.showConfirmDialog(null, myPanel,"Them sach", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
@@ -108,12 +107,10 @@ public class Popup extends JPanel {
 				t=textField_1.getText();
 				tg=textField_2.getText();
 				sl=textField_3.getText();
-				g=textField_4.getText();
+				g=textField_4.getText();				
 			}
 	      }
-	public boolean okpressed() {
-		return btnok;
-	}
+	
 	public String getid() {
 		return id;
 	}
