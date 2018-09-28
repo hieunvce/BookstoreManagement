@@ -36,12 +36,12 @@ public class Shop extends JFrame {
 	BookV b[] = new BookV[50];
 	
 	public Shop() {
+		setResizable(false);
 		setTitle("SHOP");
 		Toolkit tk =Toolkit.getDefaultToolkit();
 		short h=(short)tk.getScreenSize().height;
 		short w=(short)tk.getScreenSize().width;
-		setBounds(0, 0, w, h-40);
-		setVisible(true);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -85,32 +85,11 @@ public class Shop extends JFrame {
 	
 		
 		JButton btnXuat = new JButton("Xuat");
-		btnXuat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				data.sachdaban(b,sosach,tonggia);
-				textField_1.setText("0");
-				listmodel.removeAllElements();
-				listModelgia.removeAllElements();
-			}
-		});
+		
 		panel_3.add(btnXuat);
 		
-		JButton btnXoa = new JButton("Xoa duoc chon");
-		btnXoa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(selecidx>-1) {
-					sosach--;
-					tonggia= tonggia-b[selecidx].getgia();
-					for(int i = selecidx;i<sosach;i++) {
-						b[i]=b[i+1];
-					}
-					listModelgia.remove(selecidx);
-					listmodel.remove(selecidx);
-					textField_1.setText(String.valueOf(tonggia));
-					
-				}
-			}
-		});
+		JButton btnXoa = new JButton("Xoa");
+		
 		panel_3.add(btnXoa);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -131,6 +110,33 @@ public class Shop extends JFrame {
 		textField.setColumns(20);
 		
 				JButton btnNewButton = new JButton("Nhap");
+				
+				panel_2.add(btnNewButton);
+				
+				JPanel panel_4 = new JPanel();
+				panel_1.add(panel_4, BorderLayout.CENTER);
+				panel_4.setLayout(null);
+				
+				final JList list = new JList(listmodel);
+				list.setBounds(5, 5, w-200,h-200);
+				panel_4.add(list);
+				
+				final JList list_1 = new JList(listModelgia);
+				list_1.setEnabled(false);
+				list_1.setBounds(w-180, 5, 140, h-200);
+				panel_4.add(list_1);
+				
+				
+				list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			    
+			    
+////////////////////action listener
+				list.addListSelectionListener(new ListSelectionListener() {
+				      public void valueChanged(ListSelectionEvent le) {
+				        int idx = list.getSelectedIndex();
+				        selecidx=idx;
+				      }
+				    });
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						
@@ -154,30 +160,41 @@ public class Shop extends JFrame {
 						
 					}
 				});
-				panel_2.add(btnNewButton);
+				btnXoa.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if(selecidx>-1) {
+							sosach--;
+							tonggia= tonggia-b[selecidx].getgia();
+							for(int i = selecidx;i<sosach;i++) {
+								b[i]=b[i+1];
+							}
+							listModelgia.remove(selecidx);
+							listmodel.remove(selecidx);
+							textField_1.setText(String.valueOf(tonggia));
+							
+						}
+					}
+				});
+				btnXuat.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if(listmodel.isEmpty() && listModelgia.isEmpty() ) {
+							JOptionPane.showMessageDialog(null,"Khong co sach ", "Bien Lai", JOptionPane.ERROR_MESSAGE);
+						}else
+						{
+							data.sachdaban(b,sosach,tonggia);
+							JOptionPane.showMessageDialog(null,"Hoan tat", "Bien Lai", JOptionPane.INFORMATION_MESSAGE);
+							tonggia=0;
+							textField_1.setText("0");
+							listmodel.removeAllElements();
+							listModelgia.removeAllElements();
+						}
+					}
+				});
 				
-				JPanel panel_4 = new JPanel();
-				panel_1.add(panel_4, BorderLayout.CENTER);
-				panel_4.setLayout(null);
-				
-				final JList list = new JList(listmodel);
-				list.setBounds(5, 5, w-200,h-200);
-				panel_4.add(list);
-				
-				final JList list_1 = new JList(listModelgia);
-				list_1.setEnabled(false);
-				list_1.setBounds(w-180, 5, 140, h-200);
-				panel_4.add(list_1);
 				
 				
-				list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			    list.addListSelectionListener(new ListSelectionListener() {
-			      public void valueChanged(ListSelectionEvent le) {
-			        int idx = list.getSelectedIndex();
-			        selecidx=idx;
-			      }
-			    });
-			    
+				setBounds(0, 0, w, h-40);
+				setVisible(true);	
 	}
 	public void btchangeshop() {
 		dispose();

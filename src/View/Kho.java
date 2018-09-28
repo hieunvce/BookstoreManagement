@@ -6,8 +6,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import javax.swing.text.StyledEditorKit.StyledTextAction;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -23,8 +26,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
-public class Kho extends JFrame implements ActionListener {
+public class Kho extends JFrame implements ActionListener,TableModelListener {
 
 	private JPanel contentPane;
 	private JButton btnNewButton;
@@ -38,6 +43,7 @@ public class Kho extends JFrame implements ActionListener {
 	private JTable table;
 	private String[] tencot = {"ID", "Ten", "TacGia","So Luong","Gia"}; 
 	private JButton btnXacNhanChinh;
+	private JButton btnXoa;
 	
 	public Kho() {
 		setTitle("KHO");
@@ -67,18 +73,13 @@ public class Kho extends JFrame implements ActionListener {
 		
 		btnNewButton_1 = new JButton("Them");
 		
+		btnXoa = new JButton("Xoa");
 		
-		btnXacNhanChinh = new JButton("Xac nhan chinh sua");
-		/*btnXacNhanChinh.registerKeyboardAction(btnXacNhanChinh.getActionForKeyStroke(
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false)),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false),
-                JComponent.WHEN_FOCUSED);
-
-		btnXacNhanChinh.registerKeyboardAction(btnXacNhanChinh.getActionForKeyStroke(
-                KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, true)),
-                KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true),
-                JComponent.WHEN_FOCUSED);*/
-	
+		panel_1.add(btnXoa);
+		
+		
+		btnXacNhanChinh = new JButton("Cap nhat");
+		
 		panel_1.add(btnXacNhanChinh);
 		panel_1.add(btnNewButton_1);
 		
@@ -95,6 +96,8 @@ public class Kho extends JFrame implements ActionListener {
 		
 		
 		table = new JTable(tblsach,tencot);
+		
+	
 		TableColumn cot = table.getColumnModel().getColumn(0);
 		cot.setMaxWidth(30);
 		
@@ -106,8 +109,8 @@ public class Kho extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {	
 				boolean err=false;
 				
-				for(int i=0;i<data.gettongsosach();i++) {
-					for(int u =0;u<3;u++) {
+				for(int i=0;i<tongsoluongsach;i++) {
+					for(int u =0;u<5;u++) {
 						if(((String)table.getValueAt(i,u)).equals("")) {
 							switch (u) {
 							case 0:
@@ -139,12 +142,7 @@ public class Kho extends JFrame implements ActionListener {
 				if(err) {
 				}
 				else {
-					for(int i=0;i<data.gettongsosach();i++) {
-						for(int u =0;u<3;u++) {
-							tblsach[i][u]= (String) table.getValueAt(i,u);
-							System.out.println(tblsach[i][u]);
-						}
-					}
+					data.suasach(tblsach,tongsoluongsach);
 				}	
 			}	
 		});
@@ -157,32 +155,60 @@ public class Kho extends JFrame implements ActionListener {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Popup  pop = new Popup();
-				System.out.println(pop.getten());
 				tblsach[tongsoluongsach][0]=pop.getid();
 				tblsach[tongsoluongsach][1]=pop.getten();
 				tblsach[tongsoluongsach][2]=pop.gettacgia();
 				tblsach[tongsoluongsach][3]=pop.getsoluong();
 				tblsach[tongsoluongsach][4]=pop.getgia();
-				System.out.println(tblsach[tongsoluongsach][0]);
-				System.out.println(tblsach[tongsoluongsach][1]);
-				System.out.println(tblsach[tongsoluongsach][2]);
-				System.out.println(tblsach[tongsoluongsach][3]);
-				System.out.println(tblsach[tongsoluongsach][4]);
-				table.repaint();
-				data.themsach(tblsach[tongsoluongsach][0],
-							  tblsach[tongsoluongsach][1],
-							  tblsach[tongsoluongsach][2],
-							  tblsach[tongsoluongsach][3],
-							  tblsach[tongsoluongsach][4]);
-				tongsoluongsach++;
+				if(tblsach[tongsoluongsach][0].equals("")||
+						tblsach[tongsoluongsach][1].equals("")||
+						tblsach[tongsoluongsach][2].equals("")||
+						tblsach[tongsoluongsach][3].equals("")||
+						tblsach[tongsoluongsach][4].equals("")) {
+					JOptionPane.showMessageDialog(null,"thong tin sach bi de trong", "loi", JOptionPane.OK_OPTION);
+				}
+				else {
+					table.repaint();
+					data.themsach(tblsach[tongsoluongsach][0],
+								  tblsach[tongsoluongsach][1],
+								  tblsach[tongsoluongsach][2],
+								  tblsach[tongsoluongsach][3],
+								  tblsach[tongsoluongsach][4]);
+					tongsoluongsach++;
+				}
 			}
 		});
-		
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int t=table.getSelectedRow();
+				String temp=(String) table.getValueAt(t,0);
+				if(t>-1) {
+					data.xoasach(temp);
+					tongsoluongsach--;
+					for(int i=t;i<tongsoluongsach;i++) {
+						tblsach[i][0]=tblsach[i+1][0];
+						tblsach[i][1]=tblsach[i+1][1];
+						tblsach[i][2]=tblsach[i+1][2];
+						tblsach[i][3]=tblsach[i+1][3];
+						tblsach[i][4]=tblsach[i+1][4];
+					}
+					tblsach[tongsoluongsach][0]="";
+					tblsach[tongsoluongsach][1]="";
+					tblsach[tongsoluongsach][2]="";
+					tblsach[tongsoluongsach][3]="";
+					tblsach[tongsoluongsach][4]="";
+					table.repaint();
+					
+					
+				}
+			}
+		});
 ///////////////////////////////////////////		
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, w,h-40);
+		//setBounds(0,0,500,500);
 		
 	}
 	public void btchangekho () {
@@ -190,6 +216,9 @@ public class Kho extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
+	}
+	public void tableChanged(TableModelEvent arg0) {
+		
 	}
 
 }

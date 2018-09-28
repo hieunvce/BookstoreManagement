@@ -1,22 +1,47 @@
 package Source;
 
+import java.awt.datatransfer.FlavorTable;
+
 public class BookV {
 
 	private String ten;
 	private String tacgia;
-	private float gia=10;
-	//private int soluong=10;
+	private float gia;
+	private int soluong;
 	private int id;
 	
-	public void set(String t,String tg,int id) {
+	public BookV() {
+		ten=" ";
+		tacgia=" ";
+		id=0;
+		soluong=0;
+		gia=0;
+	}
+	public BookV(int id,String t,String tg,int sl,float g) {
+		ten=t;
+		tacgia=tg;
+		this.id=id;
+		soluong=sl;
+		gia=g;
+	}
+	public void set(int id,String t,String tg) {
 		ten=t;
 		tacgia=tg;
 		this.id=id;
 	}
+	public void set(int id,String t,String tg,int sl,float g) {
+		ten=t;
+		tacgia=tg;
+		this.id=id;
+		soluong=sl;
+		gia=g;
+	}
 	public void get() {
-		System.out.println(ten);
-		System.out.println(tacgia);
-		System.out.println(id);
+		System.out.print(id+"\t");
+		System.out.print(ten+"\t");
+		System.out.print(tacgia+"\t");
+		System.out.print(soluong+"\t");
+		System.out.println(gia);	
 	}
 	public String getten() {
 		return ten;
@@ -29,5 +54,8 @@ public class BookV {
 	}
 	public int getid() {
 		return id;
+	}
+	public int getsoluong() {
+		return soluong;
 	}
 }

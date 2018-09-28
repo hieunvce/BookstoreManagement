@@ -1,0 +1,11 @@
+man hinh KHO
+	"Change" 	:doi sang man hinh SHOP
+	"them"   	:hien ra cua so nhap thong tin sach moi (int ID,String ten,String tacgia,int soluong,float gia  chua co rang buoc kieu du lien nhap vao)
+	"xac nhan sua"  :chinh sua roi nhan enter hoac bam chuot sang cho khac sau do nhan nut moi cap nhat (int ID,String ten,String tacgia,int soluong,float gia  chua co rang buoc kieu du lien nhap vao)
+	"xoa"		:chon 1 hang de xoa
+
+man hinh SHOP
+	"change"	:nhap "abc" de chuyen ve KHO
+	"nhap"		:nhap ID sach (chi chap nhan kieu int)
+	"xoa"		:chon 1 hang de xoa
+	"xuat"		:hien cua so thong bao thanh toan thanh cong
