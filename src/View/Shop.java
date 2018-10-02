@@ -29,7 +29,7 @@ public class Shop extends JFrame {
 	private int 	id[]=new int[50];
 	
 	private byte sosach=0;
-	private float tonggia =0;
+	private double tonggia =0;
 	private JTextField textField_1;
 	private int selecidx=-1;
 	database data = new database();

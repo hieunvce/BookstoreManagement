@@ -5,14 +5,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.JobAttributes;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
+import java.awt.Desktop;
+import java.awt.FileDialog;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Popup extends JPanel {
 	private JPanel panel;
@@ -33,6 +40,8 @@ public class Popup extends JPanel {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private String id,t,tg,sl,g;
+	private String path="c:\\";
+	
 	public Popup() {
 	      
 	      JPanel myPanel = new JPanel();
@@ -98,16 +107,45 @@ public class Popup extends JPanel {
 	      panel_5.add(textField_4, BorderLayout.EAST);
 	      textField_4.setColumns(10);
 	      
-	      lblNewLabel = new JLabel("image");
+	      lblNewLabel = new JLabel("        +        ");
+	      
+	      
+	      lblNewLabel.addMouseListener(new MouseAdapter() {
+	      	public void mouseClicked(MouseEvent arg0) {
+	      		FileDialog fd = new FileDialog(new JFrame());
+	      		fd.setVisible(true);
+	      		File[] f = fd.getFiles();
+	      		if(f.length > 0){
+		      		  BufferedImage img = null;
+		    	      try {
+		    	          img = ImageIO.read(new File(fd.getFiles()[0].getAbsolutePath()));
+		    	      } catch (IOException e) {
+		    	          e.printStackTrace();
+		    	      }
+		    	      Image dimg = img.getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(),
+		    	    	        Image.SCALE_SMOOTH);
+		    	      ImageIcon imageIcon = new ImageIcon(dimg);
+		    	      lblNewLabel.setText("");
+		    	      lblNewLabel.setIcon(imageIcon);
+	      		}
+	      	}
+	      });
 	      lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 	      myPanel.add(lblNewLabel, BorderLayout.WEST);
-	      int rs =JOptionPane.showConfirmDialog(null, myPanel,"Them sach", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+	      int rs =JOptionPane.showConfirmDialog(null, myPanel,"Them sach", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE);
 			if(rs==JOptionPane.OK_OPTION) {
 				id=textField.getText();
 				t=textField_1.getText();
 				tg=textField_2.getText();
 				sl=textField_3.getText();
 				g=textField_4.getText();				
+			}
+			if(rs==JOptionPane.CLOSED_OPTION) {
+				id="";
+				t="";
+				tg="";
+				sl="";
+				g="";
 			}
 	      }
 	

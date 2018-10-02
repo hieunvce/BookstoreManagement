@@ -44,6 +44,8 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 	private String[] tencot = {"ID", "Ten", "TacGia","So Luong","Gia"}; 
 	private JButton btnXacNhanChinh;
 	private JButton btnXoa;
+	private boolean thtype=true;
+	private boolean cntype=true;
 	
 	public Kho() {
 		setTitle("KHO");
@@ -99,7 +101,7 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 	
 		TableColumn cot = table.getColumnModel().getColumn(0);
-		cot.setMaxWidth(30);
+		cot.setMaxWidth(50);
 		
 		scrollPane.setViewportView(table);
 		
@@ -142,7 +144,21 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 				if(err) {
 				}
 				else {
+					try {
+						for(int i =0;i<tongsoluongsach;i++) {
+							Integer.parseInt(tblsach[i][0]);
+							Integer.parseInt(tblsach[i][3]);
+							Double.parseDouble(tblsach[i][4]);
+						}
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null,"Sai kieu du lieu", "loi", JOptionPane.OK_OPTION);
+						cntype=false;
+					}
+					if(cntype)
 					data.suasach(tblsach,tongsoluongsach);
+					else
+						cntype=true;
 				}	
 			}	
 		});
@@ -154,36 +170,51 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Popup  pop = new Popup();
-				tblsach[tongsoluongsach][0]=pop.getid();
-				tblsach[tongsoluongsach][1]=pop.getten();
-				tblsach[tongsoluongsach][2]=pop.gettacgia();
-				tblsach[tongsoluongsach][3]=pop.getsoluong();
-				tblsach[tongsoluongsach][4]=pop.getgia();
-				if(tblsach[tongsoluongsach][0].equals("")||
-						tblsach[tongsoluongsach][1].equals("")||
-						tblsach[tongsoluongsach][2].equals("")||
-						tblsach[tongsoluongsach][3].equals("")||
-						tblsach[tongsoluongsach][4].equals("")) {
+			
+				Popup pop = new Popup();
+				
+				if(	pop.getid().equals("")||
+					pop.getten().equals("")||
+					pop.gettacgia().equals("")||
+					pop.getsoluong().equals("")||
+					pop.getgia().equals("")) {
 					JOptionPane.showMessageDialog(null,"thong tin sach bi de trong", "loi", JOptionPane.OK_OPTION);
 				}
 				else {
-					table.repaint();
-					data.themsach(tblsach[tongsoluongsach][0],
-								  tblsach[tongsoluongsach][1],
-								  tblsach[tongsoluongsach][2],
-								  tblsach[tongsoluongsach][3],
-								  tblsach[tongsoluongsach][4]);
-					tongsoluongsach++;
+					try {
+						Integer.parseInt(pop.getid());
+						Integer.parseInt(pop.getsoluong());
+						Double.parseDouble(pop.getgia());
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null,"Sai kieu du lieu", "loi", JOptionPane.OK_OPTION);
+						thtype=false;
+					}
+					if(thtype) {
+						tblsach[tongsoluongsach][0]=pop.getid();
+						tblsach[tongsoluongsach][1]=pop.getten();
+						tblsach[tongsoluongsach][2]=pop.gettacgia();
+						tblsach[tongsoluongsach][3]=pop.getsoluong();
+						tblsach[tongsoluongsach][4]=pop.getgia();
+						table.repaint();
+						data.themsach(Integer.parseInt(tblsach[tongsoluongsach][0]),
+						tblsach[tongsoluongsach][1],
+						tblsach[tongsoluongsach][2],
+						Integer.parseInt(tblsach[tongsoluongsach][3]),
+						Double.parseDouble(tblsach[tongsoluongsach][4]));
+						tongsoluongsach++;
+					}
 				}
+				thtype=true;
+				
 			}
 		});
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int t=table.getSelectedRow();
 				String temp=(String) table.getValueAt(t,0);
-				if(t>-1) {
-					data.xoasach(temp);
+				if(t>-1 && t<tongsoluongsach-1) {
+					data.xoasach(Integer.parseInt(temp));
 					tongsoluongsach--;
 					for(int i=t;i<tongsoluongsach;i++) {
 						tblsach[i][0]=tblsach[i+1][0];
@@ -207,8 +238,8 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, w,h-40);
-		//setBounds(0,0,500,500);
+		//setBounds(0, 0, w,h-40);
+		setBounds(0,0,500,500);
 		
 	}
 	public void btchangekho () {

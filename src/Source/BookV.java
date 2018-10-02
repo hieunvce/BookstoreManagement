@@ -6,7 +6,7 @@ public class BookV {
 
 	private String ten;
 	private String tacgia;
-	private float gia;
+	private double gia;
 	private int soluong;
 	private int id;
 	
@@ -17,25 +17,21 @@ public class BookV {
 		soluong=0;
 		gia=0;
 	}
-	public BookV(int id,String t,String tg,int sl,float g) {
+	public BookV(int id,String t,String tg,int sl,double g) {
 		ten=t;
 		tacgia=tg;
 		this.id=id;
 		soluong=sl;
 		gia=g;
 	}
-	public void set(int id,String t,String tg) {
-		ten=t;
-		tacgia=tg;
-		this.id=id;
-	}
-	public void set(int id,String t,String tg,int sl,float g) {
+	public void set(int id,String t,String tg,int sl,double g) {
 		ten=t;
 		tacgia=tg;
 		this.id=id;
 		soluong=sl;
 		gia=g;
 	}
+	
 	public void get() {
 		System.out.print(id+"\t");
 		System.out.print(ten+"\t");
@@ -49,7 +45,7 @@ public class BookV {
 	public String gettentacgia() {
 		return tacgia;
 	}
-	public float getgia() {
+	public double getgia() {
 		return gia;
 	}
 	public int getid() {
