@@ -5,7 +5,6 @@ com/app/bookstoreapp/entity/Hoadon.class
 com/app/bookstoreapp/entity/CtCongno.class
 com/app/bookstoreapp/MainApp.class
 com/app/bookstoreapp/entity/Nhaxuatban.class
-com/app/bookstoreapp/MainApp$1.class
 com/app/bookstoreapp/entity/SachId.class
 com/app/bookstoreapp/entity/Nhanvien.class
 com/app/bookstoreapp/entity/Baocaoton.class
@@ -14,4 +13,5 @@ com/app/bookstoreapp/entity/CtCongnoId.class
 com/app/bookstoreapp/entity/Baocaocongno.class
 com/app/bookstoreapp/util/HibernateUtil.class
 com/app/bookstoreapp/entity/Khachhang.class
-com/app/bookstoreapp/FXMLController.class
+com/app/bookstoreapp/controller/FXML_LoginController.class
+com/app/bookstoreapp/controller/AlertHelper.class
