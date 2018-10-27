@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 27, 2018 3:17:07 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.app.bookstoreapp.entity.Sach" table="sach" catalog="BookstoreDB" optimistic-lock="version">
+        <composite-id name="id" class="com.app.bookstoreapp.entity.SachId">
+            <key-property name="masach" type="int">
+                <column name="MASACH" />
+            </key-property>
+            <key-property name="matheloai" type="int">
+                <column name="MATHELOAI" />
+            </key-property>
+            <key-property name="manxb" type="int">
+                <column name="MANXB" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="nhaxuatban" class="com.app.bookstoreapp.entity.Nhaxuatban" update="false" insert="false" fetch="select">
+            <column name="MANXB" not-null="true" />
+        </many-to-one>
+        <many-to-one name="theloai" class="com.app.bookstoreapp.entity.Theloai" update="false" insert="false" fetch="select">
+            <column name="MATHELOAI" not-null="true" />
+        </many-to-one>
+        <property name="matagia" type="java.lang.Integer">
+            <column name="MATAGIA" />
+        </property>
+        <property name="soluong" type="java.lang.Integer">
+            <column name="SOLUONG" />
+        </property>
+        <property name="dongia" type="java.lang.Integer">
+            <column name="DONGIA" />
+        </property>
+        <property name="tensach" type="string">
+            <column name="TENSACH" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

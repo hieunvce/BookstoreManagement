@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 27, 2018 3:17:07 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.app.bookstoreapp.entity.Baocaoton" table="baocaoton" catalog="BookstoreDB" optimistic-lock="version">
+        <id name="maton" type="int">
+            <column name="MATON" />
+            <generator class="assigned" />
+        </id>
+        <property name="thanglap" type="timestamp">
+            <column name="THANGLAP" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
