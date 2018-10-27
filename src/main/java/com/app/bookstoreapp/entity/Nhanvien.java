@@ -17,6 +17,8 @@ public class Nhanvien  implements java.io.Serializable {
      private String gioitinh;
      private String diachi;
      private String sdt;
+     private String username;
+     private String password;
      private Set hoadons = new HashSet(0);
      private Set phieunhaps = new HashSet(0);
 
@@ -95,7 +97,21 @@ public class Nhanvien  implements java.io.Serializable {
         this.phieunhaps = phieunhaps;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 
 }

@@ -23,6 +23,12 @@
         <property name="sdt" type="string">
             <column name="SDT" length="20" />
         </property>
+        <property name="username" type="string">
+            <column name="USERNAME" length="45" not-null="true" unique="true"/>
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="45" not-null="true" />
+        </property>
         <set name="hoadons" table="hoadon" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="MANV" not-null="true" />
