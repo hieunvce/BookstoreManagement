@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 27, 2018 3:17:07 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.app.bookstoreapp.entity.CtCongno" table="ct_congno" catalog="BookstoreDB" optimistic-lock="version">
+        <composite-id name="id" class="com.app.bookstoreapp.entity.CtCongnoId">
+            <key-property name="mano" type="int">
+                <column name="MANO" />
+            </key-property>
+            <key-property name="makh" type="int">
+                <column name="MAKH" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="baocaocongno" class="com.app.bookstoreapp.entity.Baocaocongno" update="false" insert="false" fetch="select">
+            <column name="MANO" not-null="true" />
+        </many-to-one>
+        <many-to-one name="khachhang" class="com.app.bookstoreapp.entity.Khachhang" update="false" insert="false" fetch="select">
+            <column name="MAKH" not-null="true" />
+        </many-to-one>
+        <property name="nodau" type="java.lang.Integer">
+            <column name="NODAU" />
+        </property>
+        <property name="phatsinh" type="java.lang.Integer">
+            <column name="PHATSINH" />
+        </property>
+        <property name="nocuoi" type="java.lang.Integer">
+            <column name="NOCUOI" />
+        </property>
+    </class>
+</hibernate-mapping>
