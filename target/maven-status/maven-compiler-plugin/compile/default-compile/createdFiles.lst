@@ -3,6 +3,7 @@ com/app/bookstoreapp/entity/HoadonId.class
 com/app/bookstoreapp/entity/Phieunhap.class
 com/app/bookstoreapp/entity/Hoadon.class
 com/app/bookstoreapp/entity/CtCongno.class
+com/app/bookstoreapp/controller/FXML_CashController.class
 com/app/bookstoreapp/MainApp.class
 com/app/bookstoreapp/entity/Nhaxuatban.class
 com/app/bookstoreapp/entity/SachId.class
