@@ -51,4 +51,5 @@ Contributor(s):
   <table-filter match-name="sach"/>
   <table-filter match-name="nhanvien"/>
   <table-filter match-name="baocaoton"/>
+  <table-filter match-name="tacgia"/>
 </hibernate-reverse-engineering>
