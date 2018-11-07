@@ -18,7 +18,7 @@ public class MainApp extends Application {
         primaryStage.show();
         */
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/FXML_Cash.fxml"));
-        primaryStage.setTitle("Cash GUI");
+        primaryStage.setTitle("Login GUI");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
