@@ -5,7 +5,12 @@
  */
 package com.app.bookstoreapp.controller;
 
+import com.app.bookstoreapp.entity.Books;
+import com.app.bookstoreapp.entity.Employees;
+import com.app.bookstoreapp.util.HibernateUtil;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,6 +28,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -108,8 +116,31 @@ public class FXML_CashController implements Initializable {
     @FXML
     protected void queryDatabase(ActionEvent event){
         Window owner = queryTextField.getScene().getWindow();
-        ObservableList<String> results =FXCollections.observableArrayList (
-            "Single", "Double", "Suite", "Family App");
-        queryResultListView.setItems(results);
+        
+        ArrayList booksName=new ArrayList();
+        ObservableList<Books> bookList = searchBooksByName(queryTextField.getText());
+        for (Books item : bookList){
+            booksName.add(item.getTitle());
+        }
+        ObservableList<String> resultView =FXCollections.observableArrayList (booksName);
+        queryResultListView.setItems(resultView);
+    }
+    private static ObservableList<Books> searchBooksByName(String keyword) {
+        ObservableList<Books> searchResults = FXCollections.observableArrayList ();
+        
+        String hql = "from Books as book where upper(book.title) like '%"+keyword.toUpperCase()+"%'";
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query q = session.createQuery(hql);
+            session.getTransaction().commit();
+            List result = q.list();
+            searchResults = FXCollections.observableArrayList (result);
+            session.close();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            return searchResults;
+        }
     }
 }

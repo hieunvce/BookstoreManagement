@@ -40,16 +40,16 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="BookstoreDB"/>
-  <table-filter match-name="baocaocongno"/>
-  <table-filter match-name="nhaxuatban"/>
-  <table-filter match-name="hoadon"/>
-  <table-filter match-name="phieunhap"/>
-  <table-filter match-name="ct_congno"/>
-  <table-filter match-name="theloai"/>
-  <table-filter match-name="khachhang"/>
-  <table-filter match-name="sach"/>
-  <table-filter match-name="nhanvien"/>
-  <table-filter match-name="baocaoton"/>
-  <table-filter match-name="tacgia"/>
+  <schema-selection match-catalog="bookstore"/>
+  <table-filter match-name="discounts"/>
+  <table-filter match-name="authors"/>
+  <table-filter match-name="books_discounts"/>
+  <table-filter match-name="customers_discounts"/>
+  <table-filter match-name="genres"/>
+  <table-filter match-name="publishers"/>
+  <table-filter match-name="orders"/>
+  <table-filter match-name="books"/>
+  <table-filter match-name="customers"/>
+  <table-filter match-name="employees"/>
+  <table-filter match-name="book_adder"/>
 </hibernate-reverse-engineering>

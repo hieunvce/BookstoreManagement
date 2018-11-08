@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 8, 2018 10:55:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bookstore" name="com.app.bookstoreapp.entity.Books" optimistic-lock="version" table="books">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="com.app.bookstoreapp.entity.Authors" fetch="select" name="authors">
+      <column name="authorId" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="com.app.bookstoreapp.entity.Genres" fetch="select" name="genres">
+      <column name="genreId"/>
+    </many-to-one>
+    <many-to-one class="com.app.bookstoreapp.entity.Publishers" fetch="select" name="publishers">
+      <column name="publisherId"/>
+    </many-to-one>
+    <property name="isbn" type="string">
+      <column length="8" name="isbn" unique="true"/>
+    </property>
+    <property name="title" type="string">
+      <column length="100" name="title"/>
+    </property>
+    <property name="publicationYear" type="java.lang.Integer">
+      <column name="publicationYear"/>
+    </property>
+    <property name="price" type="java.lang.Integer">
+      <column name="price"/>
+    </property>
+    <property name="availableQuantity" type="java.lang.Integer">
+      <column name="availableQuantity"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="booksDiscountses" table="books_discounts">
+      <key>
+        <column name="bookId"/>
+      </key>
+      <one-to-many class="com.app.bookstoreapp.entity.BooksDiscounts"/>
+    </set>
+  </class>
+</hibernate-mapping>

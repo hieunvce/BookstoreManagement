@@ -5,7 +5,7 @@
  */
 package com.app.bookstoreapp.controller;
 
-import com.app.bookstoreapp.entity.Nhanvien;
+import com.app.bookstoreapp.entity.Employees;
 import com.app.bookstoreapp.util.HibernateUtil;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -52,11 +52,11 @@ public class FXML_LoginController {
                         "Please enter your password");
             return;
         }
-        Nhanvien nv = getNhanvienByUserNameAndPassword(userNameField.getText(),passwordField.getText());
-        System.out.println("nv = "+nv.getTennv());
-        if (nv.getManv()!=-1){
+        Employees emp = getEmployeeByUserNameAndPassword(userNameField.getText(),passwordField.getText());
+        System.out.println("emp = "+emp.getFirstName()+emp.getLastName());
+        if (emp.getId()!=-1){
             AlertHelper.showAlert(Alert.AlertType.INFORMATION,owner,"Login successfull",
-                    "Welcome "+nv.getTennv());
+                    "Welcome "+emp.getFirstName()+" "+emp.getLastName());
         } else {
             AlertHelper.showAlert(Alert.AlertType.ERROR,owner,"Login failed",
                     "Incorrect Username or Password");
@@ -64,23 +64,23 @@ public class FXML_LoginController {
         
     }
     
-    private static Nhanvien getNhanvienByUserNameAndPassword(String userName, String password) {
-        Nhanvien nv = new Nhanvien();
-        nv.setManv(-1);
-        String hql = "from Nhanvien nv where nv.username=\"" + userName 
-                +"\" and nv.password=\"" + password + "\"";
+    private static Employees getEmployeeByUserNameAndPassword(String userName, String password) {
+        Employees emp = new Employees();
+        emp.setId(-1);
+        String hql = "from Employees emp where emp.username=\"" + userName 
+                +"\" and emp.password=\"" + password + "\"";
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Query q = session.createQuery(hql);
             session.getTransaction().commit();
             List result = q.list();
-            nv=(Nhanvien) result.get(0);
+            emp=(Employees) result.get(0);
             session.close();
         } catch (HibernateException he) {
             he.printStackTrace();
         } finally {
-            return nv;
+            return emp;
         }
     }
 }
