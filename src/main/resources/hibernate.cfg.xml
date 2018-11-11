@@ -43,20 +43,21 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/BookstoreDB?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">hieunguyen</property>
     <property name="hibernate.connection.password">3101996</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="com/app/bookstoreapp/entity/Theloai.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Khachhang.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Baocaoton.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Hoadon.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Baocaocongno.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Phieunhap.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Sach.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/CtCongno.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Nhanvien.hbm.xml"/>
-    <mapping resource="com/app/bookstoreapp/entity/Nhaxuatban.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Genres.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Employees.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Books.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/BooksDiscounts.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Discounts.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Authors.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/CustomersDiscounts.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Customers.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Publishers.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/Orders.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="com/app/bookstoreapp/entity/BookAdder.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 8, 2018 10:55:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bookstore" name="com.app.bookstoreapp.entity.BooksDiscounts" optimistic-lock="version" table="books_discounts">
+    <composite-id class="com.app.bookstoreapp.entity.BooksDiscountsId" name="id">
+      <key-property name="bookId" type="java.lang.Integer">
+        <column name="bookId"/>
+      </key-property>
+      <key-property name="discountId" type="java.lang.Integer">
+        <column name="discountId"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="com.app.bookstoreapp.entity.Books" fetch="select" insert="false" name="books" update="false">
+      <column name="bookId"/>
+    </many-to-one>
+    <many-to-one class="com.app.bookstoreapp.entity.Discounts" fetch="select" insert="false" name="discounts" update="false">
+      <column name="discountId"/>
+    </many-to-one>
+  </class>
+</hibernate-mapping>

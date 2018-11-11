@@ -5,20 +5,32 @@
  */
 package com.app.bookstoreapp.controller;
 
+import com.app.bookstoreapp.entity.Books;
+import com.app.bookstoreapp.entity.Employees;
+import com.app.bookstoreapp.util.HibernateUtil;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -50,11 +62,11 @@ public class FXML_CashController implements Initializable {
     @FXML
     private TextField customerAddressTextField;
     @FXML
-    private TextArea subTotalTextArea;
+    private TextField subTotalTextField;
     @FXML
-    private TextArea discountTextArea;
+    private TextField discountTextField;
     @FXML
-    private TextArea totalTextArea;
+    private TextField totalTextField;
     @FXML
     private ChoiceBox searchByChoiceBox;
     
@@ -68,11 +80,32 @@ public class FXML_CashController implements Initializable {
     @FXML
     protected void createNewOrder(ActionEvent event){
         Window owner = newOrderButton.getScene().getWindow();
+        queryTextField.clear();
+        queryResultListView.getItems().clear();
+        orderTableView.getItems().clear();
+        customerIDField.clear();
+        customerNameTextField.clear();
+        subTotalTextField.clear();
+        discountTextField.clear();
+        totalTextField.clear();
+        customerAddressTextField.clear();
     }
     
     @FXML
     protected void quitCashGUI(ActionEvent event){
-        Window owner = quitCashGUIButton.getScene().getWindow();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Do you really want to QUIT?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+            Stage stage = (Stage) quitCashGUIButton.getScene().getWindow();
+            stage.close();
+            
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }
     }
     
     @FXML
@@ -83,5 +116,31 @@ public class FXML_CashController implements Initializable {
     @FXML
     protected void queryDatabase(ActionEvent event){
         Window owner = queryTextField.getScene().getWindow();
+        
+        ArrayList booksName=new ArrayList();
+        ObservableList<Books> bookList = searchBooksByName(queryTextField.getText());
+        for (Books item : bookList){
+            booksName.add(item.getTitle());
+        }
+        ObservableList<String> resultView =FXCollections.observableArrayList (booksName);
+        queryResultListView.setItems(resultView);
+    }
+    private static ObservableList<Books> searchBooksByName(String keyword) {
+        ObservableList<Books> searchResults = FXCollections.observableArrayList ();
+        
+        String hql = "from Books as book where upper(book.title) like '%"+keyword.toUpperCase()+"%'";
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query q = session.createQuery(hql);
+            session.getTransaction().commit();
+            List result = q.list();
+            searchResults = FXCollections.observableArrayList (result);
+            session.close();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+        } finally {
+            return searchResults;
+        }
     }
 }
