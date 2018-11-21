@@ -54,9 +54,7 @@ public class Authors  implements java.io.Serializable {
         this.bookses = bookses;
     }
 
-
-
-
+    
 }
 
 

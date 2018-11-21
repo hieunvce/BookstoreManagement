@@ -6,8 +6,7 @@
 package com.app.bookstoreapp.controller;
 
 import com.app.bookstoreapp.entity.Books;
-import com.app.bookstoreapp.entity.Employees;
-import com.app.bookstoreapp.util.HibernateUtil;
+import com.app.bookstoreapp.model.BooksModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +25,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -70,16 +67,17 @@ public class FXML_CashController implements Initializable {
     @FXML
     private ChoiceBox searchByChoiceBox;
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        ObservableList FXCollection;
-        searchByChoiceBox = new ChoiceBox(FXCollections.observableArrayList(
-        "Book Title","Customer Name"));
-    }    
+    private List<Books> ListViewBooks = new ArrayList();
     
-    @FXML
-    protected void createNewOrder(ActionEvent event){
-        Window owner = newOrderButton.getScene().getWindow();
+    public void reloadBookListView(){
+        ArrayList booksName=new ArrayList();
+        for (Books item : ListViewBooks){
+            booksName.add(item.getTitle());
+        }
+        ObservableList<Books> resultView = FXCollections.observableArrayList (booksName);
+        queryResultListView.setItems(resultView);
+    }
+    public void clearAllTextField(){
         queryTextField.clear();
         queryResultListView.getItems().clear();
         orderTableView.getItems().clear();
@@ -89,6 +87,23 @@ public class FXML_CashController implements Initializable {
         discountTextField.clear();
         totalTextField.clear();
         customerAddressTextField.clear();
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        clearAllTextField();
+        BooksModel bookmodel = new BooksModel();
+        ListViewBooks = bookmodel.getAllBooksFromDatabase();
+        reloadBookListView();
+    }    
+    
+    @FXML
+    protected void createNewOrder(ActionEvent event){
+        Window owner = newOrderButton.getScene().getWindow();
+        clearAllTextField();
+        
+        BooksModel bookmodel = new BooksModel();
+        ListViewBooks = bookmodel.getAllBooksFromDatabase();
+        reloadBookListView();
     }
     
     @FXML
@@ -113,34 +128,35 @@ public class FXML_CashController implements Initializable {
         Window owner = recordOrderButton.getScene().getWindow();
     }
     
+    
     @FXML
     protected void queryDatabase(ActionEvent event){
         Window owner = queryTextField.getScene().getWindow();
-        
-        ArrayList booksName=new ArrayList();
-        ObservableList<Books> bookList = searchBooksByName(queryTextField.getText());
-        for (Books item : bookList){
-            booksName.add(item.getTitle());
-        }
-        ObservableList<String> resultView =FXCollections.observableArrayList (booksName);
-        queryResultListView.setItems(resultView);
+        BooksModel bookmodel = new BooksModel();
+        ListViewBooks = bookmodel.searchBookByName(queryTextField.getText());
+        reloadBookListView();
     }
-    private static ObservableList<Books> searchBooksByName(String keyword) {
-        ObservableList<Books> searchResults = FXCollections.observableArrayList ();
+    
+    String tempItem="";
+    @FXML
+    protected void chooseItem(MouseEvent clicked){
+        Window owner = queryTextField.getScene().getWindow();
+        String selectedItem = queryResultListView.getSelectionModel().getSelectedItem().toString();
         
-        String hql = "from Books as book where upper(book.title) like '%"+keyword.toUpperCase()+"%'";
-        try {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            Query q = session.createQuery(hql);
-            session.getTransaction().commit();
-            List result = q.list();
-            searchResults = FXCollections.observableArrayList (result);
-            session.close();
-        } catch (HibernateException he) {
-            he.printStackTrace();
-        } finally {
-            return searchResults;
+        if (selectedItem.equals(tempItem))
+            clicked.consume();
+        else {
+            int selectedIndex = queryResultListView.getSelectionModel().getSelectedIndex();
+            Books selectedBook = ListViewBooks.get(selectedIndex);
+            addToTableView(selectedBook);
+            System.out.println("Selected index: "+selectedIndex);
+            System.out.println("ID: "+selectedBook.getId()+"\tTitle: "+selectedBook.getTitle());
+            tempItem=selectedItem;
         }
+    }
+    
+    
+    protected void addToTableView(Books book) {
+        
     }
 }
