@@ -11,14 +11,17 @@ public class  database {
 	
 	
 	public void sachdaban(BookV b[],int sosach,double t) {
-		//truyen mang 1 chieu cua sach da ban , so sach da ban va tong gia tien
+  		//mang 1 chieu cua sach da ban b, so sach da ban sosach va tong gia tien t
+		
+		//in ra log danh sach sach da ban
 		for(int i =0;i<sosach;i++)
 		{
-			b[i].get();// kiem tra mang 1 chieu co day du thong tin can truyen
+			b[i].get();
 		}	
 	}		
 	public BookV laysach(int id) {
-		//truyen ID nhan thong tin BookV
+		//gui ID cua sach can lay thong tin 
+		//return doi tuong sach can lay thong tin
 		BookV b = new BookV();
 		if(id<10)
 			b.set(1,"a","a",10,1);
@@ -40,7 +43,7 @@ public class  database {
 	}
 	
 	public void laytatca(String[][] danhsach) {
-		//code nhan toan bo so sach dang chuoi BookV[]
+		//nhan toan bo so sach dang chuoi BookV[]
 		
 		
 		// tao mau de test view
@@ -57,7 +60,7 @@ public class  database {
 		}
 	}
 	public void themsach(int id,String ten,String tgia,int soluong,double gia) {
-		//gui di thong tin cua sach moi gom 
+		//gui di thong tin cua sach moi dc nhap vao 
 		System.out.println("sach moi :");
 		System.out.println("id : "+id);
 		System.out.println("ten : "+ten);
@@ -82,7 +85,7 @@ public class  database {
 			bk.get();
 		}
 		
-		// arb la arraylist can cap nhat lai ve sever
+		// arb la arraylist can cap nhat len sever
 	}
 	public int gettongsosach() {
 		//nnhan tu sever tong so luong sach

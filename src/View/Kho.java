@@ -16,18 +16,27 @@ import com.sun.glass.events.KeyEvent;
 
 import Source.BookV;
 import Source.database;
+
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class Kho extends JFrame implements ActionListener,TableModelListener {
 
@@ -60,10 +69,10 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		panel = new JPanel();
-		
+
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
+	
 		btnNewButton = new JButton("Change");
 		
 		panel.add(btnNewButton);
@@ -73,20 +82,20 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		btnNewButton_1 = new JButton("Them");
+		ImageIcon iconXoa = new ImageIcon(((new ImageIcon("res/icon/del.png")).getImage()).getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH));
+		ImageIcon iconCN = new ImageIcon(((new ImageIcon("res/icon/update.png")).getImage()).getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH));
+		ImageIcon iconThem =new ImageIcon(((new ImageIcon("res/icon/add.jpg")).getImage()).getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH));
 		
-		btnXoa = new JButton("Xoa");
-		
+		btnNewButton_1 = new JButton("Them",iconThem);
+		btnXacNhanChinh = new JButton("Cap nhat",iconCN);
+		btnXoa = new JButton("Xoa",iconXoa);
+	
 		panel_1.add(btnXoa);
-		
-		
-		btnXacNhanChinh = new JButton("Cap nhat");
-		
 		panel_1.add(btnXacNhanChinh);
 		panel_1.add(btnNewButton_1);
 		
 		tongsoluongsach=data.gettongsosach();
-		/// chinh sua bang sach 
+		
 		tblsach = new String[100][5];
 		data.laytatca(tblsach);
 		
@@ -94,7 +103,8 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 		
 		scrollPane = new JScrollPane();
-		contentPane.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBorder(new LineBorder(Color.GREEN, 2, true));
+		contentPane.add(scrollPane, BorderLayout.EAST);
 		
 		
 		table = new JTable(tblsach,tencot);

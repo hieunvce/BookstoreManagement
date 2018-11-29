@@ -23,7 +23,6 @@ import java.io.IOException;
 
 public class Popup extends JPanel {
 	private JPanel panel;
-	private JLabel lblNewLabel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
@@ -106,7 +105,8 @@ public class Popup extends JPanel {
 	      textField_4 = new JTextField();
 	      panel_5.add(textField_4, BorderLayout.EAST);
 	      textField_4.setColumns(10);
-	      
+	      /*
+	       * lable add image
 	      lblNewLabel = new JLabel("        +        ");
 	      
 	      
@@ -132,6 +132,7 @@ public class Popup extends JPanel {
 	      });
 	      lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 	      myPanel.add(lblNewLabel, BorderLayout.WEST);
+	      */
 	      int rs =JOptionPane.showConfirmDialog(null, myPanel,"Them sach", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE);
 			if(rs==JOptionPane.OK_OPTION) {
 				id=textField.getText();

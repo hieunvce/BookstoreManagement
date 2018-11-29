@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import Source.BookV;
@@ -21,6 +22,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 
 public class Shop extends JFrame {
@@ -118,10 +121,12 @@ public class Shop extends JFrame {
 				panel_4.setLayout(null);
 				
 				final JList list = new JList(listmodel);
+				list.setBorder(new LineBorder(Color.GREEN, 2, true));
 				list.setBounds(5, 5, w-200,h-200);
 				panel_4.add(list);
 				
 				final JList list_1 = new JList(listModelgia);
+				list_1.setBorder(new LineBorder(Color.GREEN, 2, true));
 				list_1.setEnabled(false);
 				list_1.setBounds(w-180, 5, 140, h-200);
 				panel_4.add(list_1);
