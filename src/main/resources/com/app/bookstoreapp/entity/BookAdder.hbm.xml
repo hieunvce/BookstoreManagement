@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 8, 2018 10:55:05 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="bookstore" name="com.app.bookstoreapp.entity.BookAdder" optimistic-lock="version" table="book_adder">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="isbn" type="string">
+      <column length="8" name="isbn"/>
+    </property>
+    <property name="title" type="string">
+      <column length="100" name="title"/>
+    </property>
+    <property name="publicationYear" type="java.lang.Integer">
+      <column name="publicationYear"/>
+    </property>
+    <property name="quantity" type="java.lang.Integer">
+      <column name="quantity"/>
+    </property>
+    <property name="price" type="java.lang.Integer">
+      <column name="price"/>
+    </property>
+    <property name="publisher" type="string">
+      <column length="100" name="publisher"/>
+    </property>
+    <property name="firstName" type="string">
+      <column length="45" name="firstName"/>
+    </property>
+    <property name="lastName" type="string">
+      <column length="45" name="lastName"/>
+    </property>
+    <property name="company" type="string">
+      <column length="45" name="company"/>
+    </property>
+  </class>
+</hibernate-mapping>
