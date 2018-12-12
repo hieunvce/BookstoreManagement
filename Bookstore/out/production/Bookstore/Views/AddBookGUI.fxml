@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="Views.AddBookGUI"
+          alignment="center" hgap="10" vgap="10"
+          prefHeight="600.0" prefWidth="800.0">
+    <padding>
+        <Insets top="25" right="25" bottom="10" left="25"/>
+    </padding>
+    <Label GridPane.rowIndex="0" GridPane.columnIndex="0" text="Title"/>
+    <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="titleTextField"/>
+    <Label GridPane.rowIndex="0" GridPane.columnIndex="2" text="Author"/>
+    <TextField GridPane.rowIndex="0" GridPane.columnIndex="3" fx:id="authorTextField"/>
+    <Label GridPane.rowIndex="1" GridPane.columnIndex="0" text="ISBN"/>
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="isbnTextField"/>
+    <Label GridPane.rowIndex="1" GridPane.columnIndex="2" text="Publisher"/>
+    <TextField GridPane.rowIndex="1" GridPane.columnIndex="3" fx:id="publisherTextField"/>
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="0" text="Genre"/>
+    <TextField GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="genreTextField"/>
+    <Label GridPane.rowIndex="2" GridPane.columnIndex="2" text="Year"/>
+    <TextField GridPane.rowIndex="2" GridPane.columnIndex="3" fx:id="publicationYearTextField"/>
+    <Label GridPane.rowIndex="3" GridPane.columnIndex="0" text="Price"/>
+    <TextField GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="priceTextField"/>
+    <Label GridPane.rowIndex="3" GridPane.columnIndex="2" text="Quantity"/>
+    <TextField GridPane.rowIndex="3" GridPane.columnIndex="3" fx:id="availableQuantityTextField"/>
+
+    <Button fx:id="saveNewBookBtn" onAction="#save" GridPane.rowIndex="4" GridPane.columnIndex="0" text="Save"/>
+    <Button fx:id="cancelBtn" onAction="#cancel" GridPane.rowIndex="4" GridPane.columnIndex="1" text="Cancel"/>
+
+</GridPane>
