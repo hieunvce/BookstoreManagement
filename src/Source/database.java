@@ -10,18 +10,21 @@ import com.sun.org.apache.xpath.internal.Arg;
 public class  database {
 	
 	
-	public void sachdaban(BookV b[],int sosach,double t) {
-  		//mang 1 chieu cua sach da ban b, so sach da ban sosach va tong gia tien t
+	public void sachdaban(BookV b[]) {
+  		/**gui di mang 1 chieu cua sach da ban **/
 		
-		//in ra log danh sach sach da ban
-		for(int i =0;i<sosach;i++)
+		//in ra log de test
+		for(int i =0;i<b.length;i++)
 		{
 			b[i].get();
 		}	
 	}		
 	public BookV laysach(int id) {
-		//gui ID cua sach can lay thong tin 
-		//return doi tuong sach can lay thong tin
+		/**gui ID cua sach can lay thong tin **/
+		
+		
+		
+		//tao mau de test
 		BookV b = new BookV();
 		if(id<10)
 			b.set(1,"a","a",10,1);
@@ -36,31 +39,32 @@ public class  database {
 		return b;
 	}
 	public boolean chuyenkho(String t) {
-		////lay gia tri password de chuyen man hinh sang kho
+		/**lay gia tri password de chuyen man hinh sang kho**/
 		if(t.equals("abc"))
 			return true;
 		return false;
 	}
 	
 	public void laytatca(String[][] danhsach) {
-		//nhan toan bo so sach dang chuoi BookV[]
+		/**lay ve arraylist<book> toan bo sach**/
 		
 		
 		// tao mau de test view
-		BookV b =new BookV();
-		b.set(1,"t", "tg",15,10);
-		
+		ArrayList<BookV> b =new ArrayList<BookV>();
+		for(int i=0;i<gettongsosach();i++)
+		b.add(new BookV(i,"ten","tacgia",10,10));
 		//cap nhat danh sach toan bo sach len view
 		for(int i=0;i<gettongsosach();i++) {
-			danhsach[i][1]=b.getten();
-			danhsach[i][2]=b.gettentacgia();
-			danhsach[i][3]=String.valueOf(10);
-			danhsach[i][4]=String.valueOf((float)10);
-			danhsach[i][0]=String.valueOf(i);
+			danhsach[i][0]=String.valueOf(b.get(i).getid());
+			danhsach[i][1]=b.get(i).getten();
+			danhsach[i][2]=b.get(i).gettentacgia();
+			danhsach[i][3]=String.valueOf(b.get(i).getsoluong());
+			danhsach[i][4]=String.valueOf((float)b.get(i).getgia());
+			
 		}
 	}
 	public void themsach(int id,String ten,String tgia,int soluong,double gia) {
-		//gui di thong tin cua sach moi dc nhap vao 
+		/**gui di thong tin sach moi vua nhap vao**/
 		System.out.println("sach moi :");
 		System.out.println("id : "+id);
 		System.out.println("ten : "+ten);
@@ -69,10 +73,11 @@ public class  database {
 		System.out.println("gia : "+gia);
 	}
 	public void xoasach(int id) {
-		//gui di  ID cua sach bi xoa
+		/**gui di  ID cua sach bi xoa**/
 		System.out.println("id sach bi xoa: "+id);
 	}
 	public void suasach(ArrayList<BookV> b) {
+		/**gui di arraylist<BookV> sach da sua**/
 		int index=0;
 		for (BookV bookV : b) {
 			b.get(index).get();
@@ -80,7 +85,7 @@ public class  database {
 		}
 	}
 	public int gettongsosach() {
-		//nnhan tu sever tong so luong sach
+		/**lay ve tong so luong sach**/
 		return 20;
 	}
 }

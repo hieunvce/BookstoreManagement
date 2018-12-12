@@ -186,7 +186,7 @@ public class Shop extends JFrame {
 							JOptionPane.showMessageDialog(null,"Khong co sach ", "Bien Lai", JOptionPane.ERROR_MESSAGE);
 						}else
 						{
-							data.sachdaban(b,sosach,tonggia);
+							data.sachdaban(b);
 							JOptionPane.showMessageDialog(null,"Hoan tat", "Bien Lai", JOptionPane.INFORMATION_MESSAGE);
 							tonggia=0;
 							textField_1.setText("0");
