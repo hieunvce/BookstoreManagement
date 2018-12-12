@@ -72,20 +72,12 @@ public class  database {
 		//gui di  ID cua sach bi xoa
 		System.out.println("id sach bi xoa: "+id);
 	}
-	public void suasach(String[][] b,int sl) {
-		//cap nhat toan bo sach len sever duoi dang arraylist bookv
-		BookV bk = new BookV();
-		ArrayList arb  =new ArrayList();
-
-		for(int i=0;i<sl;i++) {
-			arb.add(new BookV(Integer.parseInt(b[i][0]),b[i][1],b[i][2],Integer.parseInt(b[i][3]),Float.parseFloat(b[i][4])));	
+	public void suasach(ArrayList<BookV> b) {
+		int index=0;
+		for (BookV bookV : b) {
+			b.get(index).get();
+			index++;
 		}
-		for(int i=0;i<sl;i++) {
-			bk = (BookV) arb.get(i);
-			bk.get();
-		}
-		
-		// arb la arraylist can cap nhat len sever
 	}
 	public int gettongsosach() {
 		//nnhan tu sever tong so luong sach

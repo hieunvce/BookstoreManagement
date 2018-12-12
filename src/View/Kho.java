@@ -6,23 +6,23 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.text.StyledEditorKit.StyledTextAction;
-
 import com.sun.glass.events.KeyEvent;
-
 import Source.BookV;
 import Source.database;
-
+import exe.TableCellListener;
 import javax.imageio.ImageIO;
+import javax.swing.CellEditor;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Dimension;
@@ -32,8 +32,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-
 import java.awt.event.InputMethodListener;
+import java.util.ArrayList;
+import java.util.EventObject;
 import java.awt.event.InputMethodEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -55,6 +56,7 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 	private JButton btnXoa;
 	private boolean thtype=true;
 	private boolean cntype=true;
+	private ArrayList<BookV> bookVs = new ArrayList<BookV>();
 	
 	public Kho() {
 		setTitle("KHO");
@@ -96,7 +98,7 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 		tongsoluongsach=data.gettongsosach();
 		
-		tblsach = new String[100][5];
+		tblsach = new String[tongsoluongsach][5];
 		data.laytatca(tblsach);
 		
 		
@@ -108,8 +110,78 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 		
 		table = new JTable(tblsach,tencot);
+		table.getModel().addTableModelListener(new TableModelListener() {
+			
+			public void tableChanged(TableModelEvent e) {
+				boolean err=false,repeat=false;
+				int index=0;
+				for(int u=0;u<5;u++) {
+					if(tblsach[e.getFirstRow()][u].equals("")) {
+						switch (u) {
+						case 0:
+							JOptionPane.showMessageDialog(null,"Loi ID sach", "Khong the cap nhat sach: ", JOptionPane.INFORMATION_MESSAGE);
+							err=true;
+							break;
+						case 1:
+							JOptionPane.showMessageDialog(null,"Loi ten sach", "Khong the cap nhat sach: ", JOptionPane.INFORMATION_MESSAGE);
+							err=true;
+							break;
+						case 2:
+							JOptionPane.showMessageDialog(null,"Loi ten tac gia", "Khong the cap nhat sach: ", JOptionPane.INFORMATION_MESSAGE);
+							err=true;
+							break;
+						case 3:
+							JOptionPane.showMessageDialog(null,"Loi so luong sach", "Khong the cap nhat sach: ", JOptionPane.INFORMATION_MESSAGE);
+							err=true;
+							break;
+						case 4:
+							JOptionPane.showMessageDialog(null,"Loi gia sach", "Khong the cap nhat sach: ", JOptionPane.INFORMATION_MESSAGE);
+							err=true;
+							break;
+						default:
+							break;
+						}
+					}
+				}
+				if(err) {
+				}
+				else {
+					try {
+						for(int i =0;i<tongsoluongsach;i++) {
+							Integer.parseInt(tblsach[i][0]);
+							Integer.parseInt(tblsach[i][3]);
+							Double.parseDouble(tblsach[i][4]);
+						}
+					}
+					catch (Exception ee) {
+						JOptionPane.showMessageDialog(null,"Sai kieu du lieu", "loi", JOptionPane.OK_OPTION);
+						cntype=false;
+					}
+					if(cntype)
+					{
+						BookV tBookV=new BookV(Integer.parseInt(tblsach[e.getLastRow()][0]),
+								tblsach[e.getLastRow()][1],
+								tblsach[e.getLastRow()][2],
+								Integer.parseInt(tblsach[e.getLastRow()][3]),
+								Double.parseDouble(tblsach[e.getLastRow()][4]));
+						for (BookV bookV : bookVs) {
+							if(bookV.getid()==tBookV.getid()) {
+								bookVs.set(index, tBookV);
+								repeat=true;
+							}
+							index++;
+						}
+						if(!repeat)bookVs.add(tBookV);
+						
+					}
+					else
+						cntype=true;
+				}
+			}
+		});
+
 		
-	
+		
 		TableColumn cot = table.getColumnModel().getColumn(0);
 		cot.setMaxWidth(50);
 		
@@ -165,8 +237,10 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 						JOptionPane.showMessageDialog(null,"Sai kieu du lieu", "loi", JOptionPane.OK_OPTION);
 						cntype=false;
 					}
-					if(cntype)
-					data.suasach(tblsach,tongsoluongsach);
+					if(cntype) {
+						data.suasach(bookVs);
+						bookVs.clear();
+					}
 					else
 						cntype=true;
 				}	
@@ -255,11 +329,16 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 	public void btchangekho () {
 		this.dispose();
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-	}
 	public void tableChanged(TableModelEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 
 }
