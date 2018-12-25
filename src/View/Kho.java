@@ -34,10 +34,14 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import java.awt.event.InputMethodListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.EventObject;
 import java.awt.event.InputMethodEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class Kho extends JFrame implements ActionListener,TableModelListener {
 
@@ -51,12 +55,17 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 	private int tongsoluongsach=0;
 	private JScrollPane scrollPane;
 	private JTable table;
-	private String[] tencot = {"ID", "Ten", "TacGia","So Luong","Gia"}; 
+	private String[] tencot = {"ID", "Tên", "Tác giả","Số lượng","Giá"};
 	private JButton btnXacNhanChinh;
 	private JButton btnXoa;
 	private boolean thtype=true;
 	private boolean cntype=true;
 	private ArrayList<BookV> bookVs = new ArrayList<BookV>();
+	private JComboBox comboBox;
+	private JButton button;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JLabel lblXapXep;
 	
 	public Kho() {
 		setTitle("KHO");
@@ -73,11 +82,40 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		panel = new JPanel();
 
 		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-	
-		btnNewButton = new JButton("Change");
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		panel.add(btnNewButton);
+		panel_3 = new JPanel();
+		panel.add(panel_3, BorderLayout.WEST);
+		
+			btnNewButton = new JButton("Change");
+			panel_3.add(btnNewButton);
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					btchangekho();
+					new Shop();
+				}
+			});
+		
+		panel_2 = new JPanel();
+		panel.add(panel_2, BorderLayout.EAST);
+		
+		lblXapXep = new JLabel("Sắp xếp theo :");
+		panel_2.add(lblXapXep);
+		
+		comboBox = new JComboBox();
+		comboBox.addItem("ID");
+		comboBox.addItem("Tên");
+		comboBox.addItem("Tác giả");
+		comboBox.addItem("Số lượng");
+		comboBox.addItem("Giá");
+		
+		panel_2.add(comboBox);
+		
+		
+		
+
+		button = new JButton("↑");
+		panel_2.add(button);
 		
 		panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
@@ -106,7 +144,7 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new LineBorder(Color.GREEN, 2, true));
-		contentPane.add(scrollPane, BorderLayout.EAST);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
 		
 		table = new JTable(tblsach,tencot);
@@ -246,12 +284,6 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 				}	
 			}	
 		});
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				btchangekho();
-				new Shop();
-			}
-		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
@@ -315,6 +347,128 @@ public class Kho extends JFrame implements ActionListener,TableModelListener {
 					table.repaint();
 					
 					
+				}
+			}
+		});
+		comboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		       if(comboBox.getSelectedIndex()==0) {
+		    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+		    		    public int compare(final String[] first, final String[] second){
+		    		        return Integer.valueOf(first[0]).compareTo(Integer.valueOf(second[0]));
+		    		    }
+		    		}); 
+		       }
+		       if(comboBox.getSelectedIndex()==1) {
+		    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+		    		    public int compare(final String[] first, final String[] second){
+		    		        return first[1].compareTo(second[1]);
+		    		    }
+		    		}); 
+		       }
+		       if(comboBox.getSelectedIndex()==2) {
+		    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+		    		    public int compare(final String[] first, final String[] second){
+		    		        return first[2].compareTo(second[2]);
+		    		    }
+		    		}); 
+		       }
+		       if(comboBox.getSelectedIndex()==3) {
+		    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+		    		    public int compare(final String[] first, final String[] second){
+		    		        return Integer.valueOf(first[3]).compareTo(Integer.valueOf(second[3]));
+		    		    }
+		    		}); 
+		       }
+		       if(comboBox.getSelectedIndex()==4) {
+		    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+		    		    public int compare(final String[] first, final String[] second){
+		    		        return Double.valueOf(first[4]).compareTo(Double.valueOf(second[4]));
+		    		    }
+		    		}); 
+		       }
+		       table.repaint();
+		    }
+		});
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(button.getText().toString().equals("↓")) {
+					button.setText("↑");
+					if(comboBox.getSelectedIndex()==0) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Integer.valueOf(first[0]).compareTo(Integer.valueOf(second[0]));
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==1) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return first[1].compareTo(second[1]);
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==2) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return first[2].compareTo(second[2]);
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==3) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Integer.valueOf(first[3]).compareTo(Integer.valueOf(second[3]));
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==4) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Double.valueOf(first[4]).compareTo(Double.valueOf(second[4]));
+				    		    }
+				    		}); 
+				       }
+				       table.repaint();
+					
+				}else if(button.getText().toString().equals("↑")) {
+					button.setText("↓");
+					if(comboBox.getSelectedIndex()==0) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Integer.valueOf(second[0]).compareTo(Integer.valueOf(first[0]));
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==1) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return second[1].compareTo(first[1]);
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==2) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return second[2].compareTo(first[2]);
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==3) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Integer.valueOf(second[3]).compareTo(Integer.valueOf(first[3]));
+				    		    }
+				    		}); 
+				       }
+				       if(comboBox.getSelectedIndex()==4) {
+				    	   Arrays.sort(tblsach, new Comparator<String[]>(){
+				    		    public int compare(final String[] first, final String[] second){
+				    		        return Double.valueOf(second[4]).compareTo(Double.valueOf(first[4]));
+				    		    }
+				    		}); 
+				       }
+				       table.repaint();
 				}
 			}
 		});
